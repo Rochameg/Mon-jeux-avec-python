@@ -348,6 +348,7 @@ def main():
     root = tk.Tk()
     MenuPrincipal(root)
     root.mainloop()
+    print("bonjour ")
 
 if __name__ == "__main__":
     main()
