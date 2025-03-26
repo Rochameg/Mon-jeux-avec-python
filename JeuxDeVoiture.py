@@ -15,11 +15,11 @@ class CarGame:
         """
         self.master = master
         master.title("Car Racing Game")
-        master.configure(bg="#0077cc")  # Fond bleu pour la fenêtre principale
+        master.configure(bg="#0077cc")  
 
         self.canvas_width = 600
         self.canvas_height = 400
-        self.canvas = tk.Canvas(master, width=self.canvas_width, height=self.canvas_height, bg="#0066cc")  # Fond bleu foncé
+        self.canvas = tk.Canvas(master, width=self.canvas_width, height=self.canvas_height, bg="#0066cc")  
         self.canvas.pack(pady=10, padx=10)
 
         self.car_width = 40
@@ -30,7 +30,7 @@ class CarGame:
             self.car_x, self.car_y,
             self.car_x + self.car_width,
             self.car_y + self.car_height,
-            fill="#003366", outline="#ffffff"  # Voiture bleu foncé avec contour blanc
+            fill="#003366", outline="#ffffff"
         )
 
         self.obstacle_width = 30
@@ -48,13 +48,13 @@ class CarGame:
         self.score_counter = 0
 
         self.game_over = False
-        self.difficulty = difficulty  # Utilisez la difficulté donnée
-        self.set_difficulty(difficulty)  # Appliquez les paramètres de difficulté
+        self.difficulty = difficulty  
+        self.set_difficulty(difficulty)  
 
         self.car_dx = 0
         self.car_dy = 0
 
-        # Liaison des événements clavier pour le mouvement de la voiture
+        
         self.canvas.bind_all("<Left>", self.start_move_left)
         self.canvas.bind_all("<Right>", self.start_move_right)
         self.canvas.bind_all("<Up>", self.start_move_up)
@@ -107,7 +107,7 @@ class CarGame:
                 x, y,
                 x + self.obstacle_width,
                 y + self.obstacle_height,
-                fill="#cc0000", outline="#ffffff"  # Obstacle rouge avec contour blanc
+                fill="#cc0000", outline="#ffffff"  
             )
             self.obstacles.append(obstacle)
             self.master.after(random.randint(1000, 2000), self.create_obstacles)
@@ -154,7 +154,7 @@ class CarGame:
             new_x = self.car_x + self.car_dx * self.speed
             new_y = self.car_y + self.car_dy * self.speed
 
-            # Empêche la voiture de sortir du canvas
+            
             new_x = max(0, min(new_x, self.canvas_width - self.car_width))
             new_y = max(0, min(new_y, self.canvas_height - self.car_height))
 
@@ -162,7 +162,7 @@ class CarGame:
                 self.car,
                 new_x - self.car_x,
                 new_y - self.car_y
-            )  # Utilisez la distance réelle
+            ) 
             self.car_x = new_x
             self.car_y = new_y
 
@@ -281,22 +281,22 @@ class MenuPrincipal:
         """
         self.master = master
         master.title("Menu des Jeux")
-        master.configure(bg="#0077cc")  # Fond bleu pour la fenêtre principale
-        self.scores = []  # Pour stocker les scores de jeu
+        master.configure(bg="#0077cc")  
+        self.scores = []  
 
         self.label_bienvenue = tk.Label(
             master,
             text="Bienvenue dans le menu du jeux M_rocha 😋😋 !",
             font=("Arial", 16, "bold"),
-            bg="#0077cc", fg="white"  # Texte blanc sur fond bleu
+            bg="#0077cc", fg="white" 
         )
         self.label_bienvenue.pack(pady=20)
 
         # Style des boutons
         button_style = {
-            "bg": "#005599",  # Fond bleu moyen
-            "fg": "white",    # Texte blanc
-            "activebackground": "#003366",  # Fond bleu foncé quand cliqué
+            "bg": "#005599",  
+            "fg": "white",    
+            "activebackground": "#003366",  
             "activeforeground": "white",
             "font": ("Arial", 12),
             "width": 20,
@@ -330,9 +330,9 @@ class MenuPrincipal:
         self.menu_niveau = tk.Menu(
             self.bouton_niveau,
             tearoff=0,
-            bg="#005599",  # Fond bleu moyen
-            fg="white",    # Texte blanc
-            activebackground="#003366"  # Fond bleu foncé quand sélectionné
+            bg="#005599",  
+            fg="white",    
+            activebackground="#003366"  
         )
         self.bouton_niveau["menu"] = self.menu_niveau
         self.menu_niveau.add_command(
@@ -360,30 +360,29 @@ class MenuPrincipal:
         )
         self.bouton_quitter.pack(pady=20)
 
-        self.jeu = None  # Instance du jeu CarGame
-        self.difficulty = "Elementary"  # Difficulté par défaut
+        self.jeu = None  
+        self.difficulty = "Elementary"  
 
     def demarrer_jeu(self):
         """Démarre une nouvelle partie du jeu."""
         if self.jeu is None or self.jeu.game_over:
             # Si aucun jeu n'est en cours ou si le jeu précédent est terminé
             if self.jeu is not None:
-                self.jeu.master.destroy()  # Détruit l'ancienne fenêtre du jeu
-            nouvelle_fenetre = tk.Toplevel(self.master)  # Crée une nouvelle fenêtre
-            nouvelle_fenetre.configure(bg="#0077cc")  # Fond bleu pour la nouvelle fenêtre
+                self.jeu.master.destroy()
+            nouvelle_fenetre = tk.Toplevel(self.master)  
+            nouvelle_fenetre.configure(bg="#0077cc")  
             self.jeu = CarGame(
                 nouvelle_fenetre,
                 self.difficulty
-            )  # Passe la difficulté actuelle
+            )  
             self.bouton_restart.config(
                 command=self.jeu.restart_game
-            )  # Configure le bouton Restart pour le nouveau jeu
+            )  
         else:
             messagebox.showinfo(
                 "Info",
                 "Le jeu est déjà en cours."
-            )  # Affiche un message si le jeu est en cours
-
+            ) 
     def restart_game(self):
         """Redémarre la partie de jeu en cours."""
         if self.jeu:
@@ -392,7 +391,7 @@ class MenuPrincipal:
             messagebox.showinfo(
                 "Info",
                 "Le jeu n'a pas encore démarré."
-            )  # Affiche un message si le jeu n'a pas démarré
+            ) 
 
     def changer_niveau(self, niveau):
         """
@@ -405,8 +404,8 @@ class MenuPrincipal:
         if self.jeu:
             self.jeu.set_difficulty(
                 niveau
-            )  # Met à jour la difficulté dans l'instance du jeu
-            self.jeu.restart_game()  # Redémarre le jeu pour appliquer la nouvelle difficulté
+            )  
+            self.jeu.restart_game()  
 
     def voir_scores(self):
         """Affiche les scores enregistrés."""
@@ -418,22 +417,22 @@ class MenuPrincipal:
             messagebox.showinfo(
                 "Scores",
                 "Aucun score enregistré."
-            )  # Affiche un message si aucun score n'est enregistré
+            )  
         else:
             scores_str = "\n".join(
                 [f"Score {i + 1}: {score}" for i, score in enumerate(self.scores)]
-            )  # Formatte les scores
+            )  
             messagebox.showinfo(
                 "Scores",
                 f"Scores enregistrés:\n{scores_str}"
-            )  # Affiche les scores
+            )  
 
 def main():
     """Fonction principale pour démarrer l'application."""
-    root = tk.Tk()  # Crée la fenêtre principale
-    root.configure(bg="#0077cc")  # Fond bleu pour la fenêtre principale
-    MenuPrincipal(root)  # Crée une instance du menu principal
-    root.mainloop()  # Démarre la boucle principale de l'interface graphique
+    root = tk.Tk()  
+    root.configure(bg="#0077cc")  
+    MenuPrincipal(root)  
+    root.mainloop()  
 
 if __name__ == "__main__":
-    main()  # Appelle la fonction main lorsque le script est exécuté
+    main()  
